@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://gibiinfoapi.betale.et/api/v1/';
+export const BASE_URL = 'https://hobh-api.betale.et/api/v1/';
