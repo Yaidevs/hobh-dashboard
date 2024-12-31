@@ -3,25 +3,25 @@ const packageData = [
     name: "Advanced Programming Guide",
     price: 0.0,
     invoiceDate: `Comprehensive guide on advanced programming techniques.`,
-    status: "Paid",
+    status: "approved",
   },
   {
     name: "Programming Guide",
     price: 59.0,
     invoiceDate: `Comprehensive guide on advanced programming techniques.`,
-    status: "Paid",
+    status: "approved",
   },
   {
     name: "Programming Guide",
     price: 99.0,
     invoiceDate: `Comprehensive guide on advanced programming techniques.`,
-    status: "Unpaid",
+    status: "pending",
   },
   {
     name: "Programming Guide",
     price: 59.0,
     invoiceDate: `Comprehensive guide on advanced programming techniques.`,
-    status: "Pending",
+    status: "pending",
   },
 ];
 
@@ -49,23 +49,23 @@ const TableThree = () => {
           <tbody>
             {packageData.map((packageItem, key) => (
               <tr key={key}>
-                <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                <td className="border-b cursor-pointer border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                   <h5 className="font-medium text-black dark:text-white">
                     {packageItem.name}
                   </h5>
                   <p className="text-sm">${packageItem.price}</p>
                 </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                <td className="border-b cursor-pointer border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p className="text-black dark:text-white">
                     {packageItem.invoiceDate}
                   </p>
                 </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                <td className="border-b cursor-pointer border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p
                     className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                      packageItem.status === "Paid"
+                      packageItem.status === "approved"
                         ? "bg-success text-success"
-                        : packageItem.status === "Unpaid"
+                        : packageItem.status === "pending"
                         ? "bg-danger text-danger"
                         : "bg-warning text-warning"
                     }`}
@@ -73,7 +73,7 @@ const TableThree = () => {
                     {packageItem.status}
                   </p>
                 </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                <td className="border-b cursor-pointer border-[#eee] py-5 px-4 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
                     <button className="hover:text-primary">
                       <svg
