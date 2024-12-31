@@ -1,48 +1,47 @@
-import { BRAND } from '../../types/brand';
-import BrandOne from '../../images/brand/brand-01.svg';
-import BrandTwo from '../../images/brand/brand-02.svg';
-import BrandThree from '../../images/brand/brand-03.svg';
-import BrandFour from '../../images/brand/brand-04.svg';
-import BrandFive from '../../images/brand/brand-05.svg';
+import BrandOne from "../../images/brand/brand-01.svg";
+import BrandTwo from "../../images/brand/brand-02.svg";
+import BrandThree from "../../images/brand/brand-03.svg";
+import BrandFour from "../../images/brand/brand-04.svg";
+import BrandFive from "../../images/brand/brand-05.svg";
 
-const brandData: BRAND[] = [
+const brandData = [
   {
     logo: BrandOne,
-    name: 'Google',
+    name: "Google",
     visitors: 3.5,
-    revenues: '5,768',
+    revenues: "5,768",
     sales: 590,
     conversion: 4.8,
   },
   {
     logo: BrandTwo,
-    name: 'Twitter',
+    name: "Twitter",
     visitors: 2.2,
-    revenues: '4,635',
+    revenues: "4,635",
     sales: 467,
     conversion: 4.3,
   },
   {
     logo: BrandThree,
-    name: 'Github',
+    name: "Github",
     visitors: 2.1,
-    revenues: '4,290',
+    revenues: "4,290",
     sales: 420,
     conversion: 3.7,
   },
   {
     logo: BrandFour,
-    name: 'Vimeo',
+    name: "Vimeo",
     visitors: 1.5,
-    revenues: '3,580',
+    revenues: "3,580",
     sales: 389,
     conversion: 2.5,
   },
   {
     logo: BrandFive,
-    name: 'Facebook',
+    name: "Facebook",
     visitors: 3.5,
-    revenues: '6,768',
+    revenues: "6,768",
     sales: 390,
     conversion: 4.2,
   },
@@ -88,8 +87,8 @@ const TableOne = () => {
           <div
             className={`grid grid-cols-3 sm:grid-cols-5 ${
               key === brandData.length - 1
-                ? ''
-                : 'border-b border-stroke dark:border-strokedark'
+                ? ""
+                : "border-b border-stroke dark:border-strokedark"
             }`}
             key={key}
           >
