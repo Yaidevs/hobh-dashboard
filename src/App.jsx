@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 import Loader from "./common/Loader";
 import PageTitle from "./components/PageTitle";
@@ -17,8 +17,11 @@ import Alerts from "./pages/UiElements/Alerts";
 import Buttons from "./pages/UiElements/Buttons";
 import DefaultLayout from "./layout/DefaultLayout";
 import Kanban from "./pages/Kanban";
+import { selectIsAuthenticated } from "./features/authentication/slice/authSlice";
+import { useSelector } from "react-redux";
 
 const App = () => {
+  const isAuthenticated = useSelector(selectIsAuthenticated);
   const [loading, setLoading] = useState(true);
   const { pathname } = useLocation();
 
@@ -31,121 +34,132 @@ const App = () => {
   }, []);
 
   // Check if the route is for authentication pages
-  const isAuthRoute = pathname === "/auth/signin" || pathname === "/auth/signup";
+  const isAuthRoute =
+    pathname === "/auth/signin" || pathname === "/auth/signup";
 
   return loading ? (
     <Loader />
+  ) : isAuthRoute ? (
+    <Routes>
+      <Route path="/auth/signin" element={<SignIn />} />
+      <Route path="/auth/signup" element={<SignUp />} />
+    </Routes>
   ) : (
-    isAuthRoute ? (
+    <DefaultLayout>
       <Routes>
-        <Route path="/auth/signin" element={<SignIn />} />
-        <Route path="/auth/signup" element={<SignUp />} />
-      </Routes>
-    ) : (
-      <DefaultLayout>
-        <Routes>
-          <Route
-            index
-            element={
+        <Route
+          index
+          element={
+            isAuthenticated ? (
               <>
                 <PageTitle title="Home" />
                 <Home />
               </>
-            }
-          />
-          <Route
-            path="/calendar"
-            element={
+            ) : (
+              <Navigate to="/auth/signin" replace />
+            )
+          }
+        />
+        <Route
+          path="/calendar"
+          element={
+            isAuthenticated ? (
               <>
                 <PageTitle title="Calendar" />
                 <Calendar />
               </>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
+            ) : (
+              <Navigate to="/auth/signin" replace />
+            )
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            isAuthenticated ? (
               <>
                 <PageTitle title="Profile" />
                 <Profile />
               </>
-            }
-          />
-          <Route
-            path="/forms/form-elements"
-            element={
-              <>
-                <PageTitle title="Form Elements" />
-                <FormElements />
-              </>
-            }
-          />
-          <Route
-            path="/forms/form-layout"
-            element={
-              <>
-                <PageTitle title="Form Layout" />
-                <FormLayout />
-              </>
-            }
-          />
-          <Route
-            path="/tables"
-            element={
-              <>
-                <PageTitle title="Tables" />
-                <Tables />
-              </>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <>
-                <PageTitle title="Settings" />
-                <Settings />
-              </>
-            }
-          />
-          <Route
-            path="/chart"
-            element={
-              <>
-                <PageTitle title="Basic Chart" />
-                <Chart />
-              </>
-            }
-          />
-          <Route
-            path="/ui/alerts"
-            element={
-              <>
-                <PageTitle title="Alerts" />
-                <Alerts />
-              </>
-            }
-          />
-          <Route
-            path="/ui/buttons"
-            element={
-              <>
-                <PageTitle title="Buttons" />
-                <Buttons />
-              </>
-            }
-          />
-          <Route
-            path="new"
-            element={
-              <>
-                <PageTitle title="new" />
-                <Kanban />
-              </>
-            }
-          />
-        </Routes>
-      </DefaultLayout>
-    )
+            ) : (
+              <Navigate to="/auth/signin" replace />
+            )
+          }
+        />
+        <Route
+          path="/forms/form-elements"
+          element={
+            <>
+              <PageTitle title="Form Elements" />
+              <FormElements />
+            </>
+          }
+        />
+        <Route
+          path="/forms/form-layout"
+          element={
+            <>
+              <PageTitle title="Form Layout" />
+              <FormLayout />
+            </>
+          }
+        />
+        <Route
+          path="/tables"
+          element={
+            <>
+              <PageTitle title="Tables" />
+              <Tables />
+            </>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <>
+              <PageTitle title="Settings" />
+              <Settings />
+            </>
+          }
+        />
+        <Route
+          path="/chart"
+          element={
+            <>
+              <PageTitle title="Basic Chart" />
+              <Chart />
+            </>
+          }
+        />
+        <Route
+          path="/ui/alerts"
+          element={
+            <>
+              <PageTitle title="Alerts" />
+              <Alerts />
+            </>
+          }
+        />
+        <Route
+          path="/ui/buttons"
+          element={
+            <>
+              <PageTitle title="Buttons" />
+              <Buttons />
+            </>
+          }
+        />
+        <Route
+          path="new"
+          element={
+            <>
+              <PageTitle title="new" />
+              <Kanban />
+            </>
+          }
+        />
+      </Routes>
+    </DefaultLayout>
   );
 };
 
