@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import SidebarLinkGroup from "./SidebarLinkGroup";
-import Logo from "../../images/logo/logo4.png";
+import Logo from "../../images/logo/logo.svg";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const location = useLocation();
@@ -58,9 +58,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
-      <div className="flex items-center justify-between gap-2 px-6 py-3 lg:py-1">
+      <div className="flex items-center justify-between gap-2 px-6 py-3 lg:py-6">
         <NavLink to="/">
-          <img src={Logo} alt="Logo" />
+          <img src="." alt="HaveOnBooks Hub" />
         </NavLink>
 
         <button
