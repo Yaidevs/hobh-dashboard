@@ -1,0 +1,14 @@
+1. Approving resources by seeing the resources in pdf and rejecting
+2.Viewing all students and instructors
+3.Posting resources
+4.Viewing transactions
+5.Viewing subscription
+6. Dashboard summry like number of resources 
+7.Authentication
+8.creating category
+9.promotion or ads
+
+# settings
+
+# email
+# admin todo

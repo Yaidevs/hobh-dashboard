@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 
-import Loader from './common/Loader';
-import PageTitle from './components/PageTitle';
-import SignIn from './pages/Authentication/SignIn';
-import SignUp from './pages/Authentication/SignUp';
-import Calendar from './pages/Calendar';
-import Chart from './pages/Chart';
-import ECommerce from './pages/Dashboard/ECommerce';
-import FormElements from './pages/Form/FormElements';
-import FormLayout from './pages/Form/FormLayout';
-import Profile from './pages/Profile';
-import Settings from './pages/Settings';
-import Tables from './pages/Tables';
-import Alerts from './pages/UiElements/Alerts';
-import Buttons from './pages/UiElements/Buttons';
-import DefaultLayout from './layout/DefaultLayout';
+import Loader from "./common/Loader";
+import PageTitle from "./components/PageTitle";
+import SignIn from "./pages/Authentication/SignIn";
+import SignUp from "./pages/Authentication/SignUp";
+import Calendar from "./pages/Calendar";
+import Chart from "./pages/Chart";
+import ECommerce from "./pages/Dashboard/ECommerce";
+import FormElements from "./pages/Form/FormElements";
+import FormLayout from "./pages/Form/FormLayout";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
+import Tables from "./pages/Tables";
+import Alerts from "./pages/UiElements/Alerts";
+import Buttons from "./pages/UiElements/Buttons";
+import DefaultLayout from "./layout/DefaultLayout";
+import Kanban from "./pages/Kanban";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -38,7 +39,7 @@ const App = () => {
           index
           element={
             <>
-              <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Home" />
               <ECommerce />
             </>
           }
@@ -47,7 +48,7 @@ const App = () => {
           path="/calendar"
           element={
             <>
-              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Calendar" />
               <Calendar />
             </>
           }
@@ -56,7 +57,7 @@ const App = () => {
           path="/profile"
           element={
             <>
-              <PageTitle title="Profile | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Profile" />
               <Profile />
             </>
           }
@@ -65,7 +66,7 @@ const App = () => {
           path="/forms/form-elements"
           element={
             <>
-              <PageTitle title="Form Elements | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Form Elements" />
               <FormElements />
             </>
           }
@@ -74,7 +75,7 @@ const App = () => {
           path="/forms/form-layout"
           element={
             <>
-              <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Form Layout" />
               <FormLayout />
             </>
           }
@@ -83,7 +84,7 @@ const App = () => {
           path="/tables"
           element={
             <>
-              <PageTitle title="Tables | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Tables" />
               <Tables />
             </>
           }
@@ -92,7 +93,7 @@ const App = () => {
           path="/settings"
           element={
             <>
-              <PageTitle title="Settings | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Settings" />
               <Settings />
             </>
           }
@@ -101,7 +102,7 @@ const App = () => {
           path="/chart"
           element={
             <>
-              <PageTitle title="Basic Chart | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Basic Chart" />
               <Chart />
             </>
           }
@@ -110,7 +111,7 @@ const App = () => {
           path="/ui/alerts"
           element={
             <>
-              <PageTitle title="Alerts | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Alerts" />
               <Alerts />
             </>
           }
@@ -119,7 +120,7 @@ const App = () => {
           path="/ui/buttons"
           element={
             <>
-              <PageTitle title="Buttons | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Buttons" />
               <Buttons />
             </>
           }
@@ -128,7 +129,7 @@ const App = () => {
           path="/auth/signin"
           element={
             <>
-              <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Signin" />
               <SignIn />
             </>
           }
@@ -137,14 +138,23 @@ const App = () => {
           path="/auth/signup"
           element={
             <>
-              <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Signup" />
               <SignUp />
+            </>
+          }
+        />
+        <Route
+          path="new"
+          element={
+            <>
+              <PageTitle title="new" />
+              <Kanban/>
             </>
           }
         />
       </Routes>
     </DefaultLayout>
   );
-}
+};
 
 export default App;
