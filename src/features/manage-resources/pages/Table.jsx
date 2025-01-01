@@ -1,10 +1,18 @@
 import { Document, Page } from "react-pdf";
 import { useState } from "react";
-import { useApproveItemMutation, useGetAllItemQuery } from "../api/dataApi";
+import {
+  useApproveItemMutation,
+  useDeclineItemMutation,
+  useGetAllItemQuery,
+} from "../api/dataApi";
 
 const ResourceTable = () => {
   const { data: resources, isSuccess } = useGetAllItemQuery();
   const [approve] = useApproveItemMutation();
+  const [decline] = useDeclineItemMutation();
+  const [showModal, setShowModal] = useState(false);
+  const [declineReason, setDeclineReason] = useState("");
+  const [declineId, setDeclineId] = useState(null);
   console.log(resources?.data);
   const [selectedPdf, setSelectedPdf] = useState(null); // State to hold selected PDF
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,16 +27,36 @@ const ResourceTable = () => {
   };
 
   const handleApprove = async (id) => {
-    console.log(id)
-
     try {
-    const res =  await approve(id).unwrap();
-    console.log('redsds',res)
-      // window.location.reload();
+      await approve(id).unwrap();
+      window.location.reload();
     } catch (error) {
       console.error("Error approving:", error);
     }
   };
+  const handleDecline = (id) => {
+    setDeclineId(id);
+    setShowModal(true);
+  };
+
+  const submitDeclineReason = async () => {
+    if (!declineReason.trim()) {
+      alert("Please provide a reason for declining.");
+      return;
+    }
+
+    try {
+      await decline({ id: declineId, message: declineReason }).unwrap();
+      alert("Item declined successfully!");
+      setShowModal(false);
+      setDeclineReason("");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error declining item:", error);
+      alert("Failed to decline item.");
+    }
+  };
+
   // Calculate the index of the last item on the current page
   const indexOfLastResource = currentPage * itemsPerPage;
   // Calculate the index of the first item on the current page
@@ -106,16 +134,32 @@ const ResourceTable = () => {
                 </td>
                 <td className="border-b cursor-pointer border-[#eee] py-5 px-4 dark:border-strokedark">
                   {resource.verification.status === "Pending" ? (
-                    <button
-                      className="inline-flex rounded-full bg-warning text-warning bg-opacity-10 py-1 px-3 text-sm font-medium"
-                      onClick={() => handleApprove(resource._id)} // Replace handleApprove with your approval function
-                    >
-                      Approve
-                    </button>
+                    <div className="flex space-x-4 mr-8">
+                      <button
+                        className="inline-flex rounded-full bg-warning text-warning bg-opacity-10 py-1 px-3 text-sm font-medium"
+                        onClick={() => handleApprove(resource._id)} // Replace handleApprove with your approval function
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className="inline-flex rounded-full bg-warning text-warning bg-opacity-10 py-1 px-3 text-sm font-medium"
+                        onClick={() => handleDecline(resource._id)} // Replace handleApprove with your approval function
+                      >
+                        Decline
+                      </button>
+                    </div>
                   ) : (
-                    <p className="bg-success text-success inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ">
-                      {resource.verification.status}
-                    </p>
+                    <div className="flex space-x-4 mr-8">
+                      <p className="bg-success text-success inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ">
+                        {resource.verification.status}
+                      </p>
+                      <button
+                        className="inline-flex rounded-full bg-warning text-warning bg-opacity-10 py-1 px-3 text-sm font-medium"
+                        onClick={() => handleDecline(resource._id)} // Replace handleApprove with your approval function
+                      >
+                        Decline
+                      </button>
+                    </div>
                   )}
                 </td>
 
@@ -193,6 +237,33 @@ const ResourceTable = () => {
           </tbody>
         </table>
       </div>
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg p-6 w-96">
+            <h2 className="text-lg font-medium text-black">Decline Item</h2>
+            <textarea
+              className="w-full mt-4 p-2 border border-gray-300 rounded"
+              placeholder="Provide a reason for declining"
+              value={declineReason}
+              onChange={(e) => setDeclineReason(e.target.value)}
+            />
+            <div className="flex justify-end mt-4">
+              <button
+                className="bg-gray-300 text-black px-4 py-2 rounded mr-2"
+                onClick={() => setShowModal(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="bg-red-500 text-white px-4 py-2 rounded"
+                onClick={submitDeclineReason}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {selectedPdf && (
         <div className="mt-6">
           <h3 className="text-lg font-medium">PDF Viewer</h3>
