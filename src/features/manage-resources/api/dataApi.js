@@ -34,6 +34,12 @@ export const resourceApi = createApi({
         body: data,
       }),
     }),
+    approveItem: builder.mutation({
+      query: (id) => ({
+        url: `${apiBasePath}/${id}/`,
+        method: "PATCH",
+      }),
+    }),
     deleteItem: builder.mutation({
       query: (id) => ({ url: `${apiBasePath}/${id}`, method: "DELETE" }),
     }),
@@ -46,4 +52,5 @@ export const {
   useGetItemByIdQuery,
   useDeleteItemMutation,
   useUpdateItemMutation,
+  useApproveItemMutation,
 } = resourceApi;
