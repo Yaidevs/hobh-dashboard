@@ -2,10 +2,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../../constants";
 import { getTokenFromCookies } from "../../../shared/getToken.mjs";
 
-const apiBasePath = "/resources";
+const apiBasePath = "/transaction";
 
-export const resourceApi = createApi({
-  reducerPath: "resourceApi",
+export const transactionsApi = createApi({
+  reducerPath: "transactionsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
@@ -46,4 +46,4 @@ export const {
   useGetItemByIdQuery,
   useDeleteItemMutation,
   useUpdateItemMutation,
-} = resourceApi;
+} = transactionsApi;

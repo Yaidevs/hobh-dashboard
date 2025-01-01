@@ -6,8 +6,8 @@ import "./css/style.css";
 import "./css/satoshi.css";
 import { Provider } from "react-redux";
 import { store } from "./store";
-// import 'jsvectormap/dist/css/jsvectormap.css';
-// import 'flatpickr/dist/flatpickr.min.css';
+import 'jsvectormap/dist/jsvectormap.css';
+import 'flatpickr/dist/flatpickr.min.css';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

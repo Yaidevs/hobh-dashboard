@@ -1,5 +1,6 @@
-import Breadcrumb from "../components/Breadcrumbs/Breadcrumb";
-import TableThree from "../components/Tables/TableThree";
+import Breadcrumb from "../../../components/Breadcrumbs/Breadcrumb";
+import ResourceTable from "./Table";
+
 
 const Resources = () => {
   return (
@@ -7,7 +8,7 @@ const Resources = () => {
       <Breadcrumb pageName="Resources" />
 
       <div className="flex flex-col gap-10">
-        <TableThree />
+        <ResourceTable />
       </div>
     </>
   );

@@ -19,7 +19,8 @@ import DefaultLayout from "./layout/DefaultLayout";
 import Kanban from "./pages/Kanban";
 import { selectIsAuthenticated } from "./features/authentication/slice/authSlice";
 import { useSelector } from "react-redux";
-import Resources from "./pages/Resources";
+import Resources from "./features/manage-resources/pages/Resources";
+import Transactions from "./features/manage-transactions/pages/Transactions";
 
 const App = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -81,6 +82,19 @@ const App = () => {
               <>
                 <PageTitle title="Resources" />
                 <Resources />
+              </>
+            ) : (
+              <Navigate to="/auth/signin" replace />
+            )
+          }
+        />
+        <Route
+          path="/transactions"
+          element={
+            isAuthenticated ? (
+              <>
+                <PageTitle title="Transactions" />
+                <Transactions />
               </>
             ) : (
               <Navigate to="/auth/signin" replace />
