@@ -5,6 +5,11 @@ import {
   useDeclineItemMutation,
   useGetAllItemQuery,
 } from "../api/dataApi";
+import { EditIcon, Plus } from "lucide-react";
+import DeclineModal from "../components/DeclineModal";
+import Add from "../components/Add";
+import Edit from "../components/Edit";
+
 
 const ResourceTable = () => {
   const { data: resources, isSuccess } = useGetAllItemQuery();
@@ -13,6 +18,18 @@ const ResourceTable = () => {
   const [showModal, setShowModal] = useState(false);
   const [declineReason, setDeclineReason] = useState("");
   const [declineId, setDeclineId] = useState(null);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  const handleAddResource = (resource) => {
+    console.log("New Resource:", resource);
+    // Add your logic to handle the new resource here
+  };
+  const handlEditResource = (resource) => {
+    console.log("New Resource:", resource);
+    // Add your logic to handle the new resource here
+  };
+
   console.log(resources?.data);
   const [selectedPdf, setSelectedPdf] = useState(null); // State to hold selected PDF
   const [currentPage, setCurrentPage] = useState(1);
@@ -75,6 +92,29 @@ const ResourceTable = () => {
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
+        <div className=" flex items-end justify-end mr-2 mb-4 ">
+          <div className="flex items-center justify-center">
+            <button
+              className="hover:text-primary"
+              onClick={() => setShowAddModal(true)}
+            >
+              <Plus
+                style={{
+                  width: 50,
+                  color: "#412D88",
+                  fontSize: 20,
+                }}
+                strokeWidth={5}
+              />
+            </button>
+            <p
+              className="inline dark:text-white text-[#412D88] cursor-pointer font-bold"
+              onClick={() => setShowAddModal(true)}
+            >
+              Add Resource
+            </p>
+          </div>
+        </div>
         <table className="w-full table-auto">
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
@@ -211,25 +251,22 @@ const ResourceTable = () => {
                         />
                       </svg>
                     </button>
-                    <button className="hover:text-primary">
-                      <svg
-                        className="fill-current"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 18 18"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16.8754 11.6719C16.5379 11.6719 16.2285 11.9531 16.2285 12.3187V14.8219C16.2285 15.075 16.0316 15.2719 15.7785 15.2719H2.22227C1.96914 15.2719 1.77227 15.075 1.77227 14.8219V12.3187C1.77227 11.9812 1.49102 11.6719 1.12539 11.6719C0.759766 11.6719 0.478516 11.9531 0.478516 12.3187V14.8219C0.478516 15.7781 1.23789 16.5375 2.19414 16.5375H15.7785C16.7348 16.5375 17.4941 15.7781 17.4941 14.8219V12.3187C17.5223 11.9531 17.2129 11.6719 16.8754 11.6719Z"
-                          fill=""
-                        />
-                        <path
-                          d="M8.55074 12.3469C8.66324 12.4594 8.83199 12.5156 9.00074 12.5156C9.16949 12.5156 9.31012 12.4594 9.45074 12.3469L13.4726 8.43752C13.7257 8.1844 13.7257 7.79065 13.5007 7.53752C13.2476 7.2844 12.8539 7.2844 12.6007 7.5094L9.64762 10.4063V2.1094C9.64762 1.7719 9.36637 1.46252 9.00074 1.46252C8.66324 1.46252 8.35387 1.74377 8.35387 2.1094V10.4063L5.40074 7.53752C5.14762 7.2844 4.75387 7.31252 4.50074 7.53752C4.24762 7.79065 4.27574 8.1844 4.50074 8.43752L8.55074 12.3469Z"
-                          fill=""
-                        />
-                      </svg>
+                    <button
+                      className="hover:text-primary"
+                      onClick={() => setShowEditModal(true)}
+                    >
+                      <EditIcon style={{ width: 16 }} />
                     </button>
+                    <Edit
+                      showModal={showEditModal}
+                      setShowModal={setShowEditModal}
+                      onSubmit={handlEditResource}
+                    />
+                    <Add
+                      showModal={showAddModal}
+                      setShowModal={setShowAddModal}
+                      onSubmit={handleAddResource}
+                    />
                   </div>
                 </td>
               </tr>
@@ -237,33 +274,13 @@ const ResourceTable = () => {
           </tbody>
         </table>
       </div>
-      {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg p-6 w-96">
-            <h2 className="text-lg font-medium text-black">Decline Item</h2>
-            <textarea
-              className="w-full mt-4 p-2 border border-gray-300 rounded"
-              placeholder="Provide a reason for declining"
-              value={declineReason}
-              onChange={(e) => setDeclineReason(e.target.value)}
-            />
-            <div className="flex justify-end mt-4">
-              <button
-                className="bg-gray-300 text-black px-4 py-2 rounded mr-2"
-                onClick={() => setShowModal(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="bg-red-500 text-white px-4 py-2 rounded"
-                onClick={submitDeclineReason}
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <DeclineModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        declineReason={declineReason}
+        setDeclineReason={setDeclineReason}
+        submitDeclineReason={submitDeclineReason}
+      />
       {selectedPdf && (
         <div className="mt-6">
           <h3 className="text-lg font-medium">PDF Viewer</h3>
