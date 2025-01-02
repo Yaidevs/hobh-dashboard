@@ -1,29 +1,24 @@
 import { useState } from "react";
-import { useGetAllInstructorQuery } from "../api/dataApi";
 import Edit from "../../manage-resources/components/Edit";
 import { EditIcon } from "lucide-react";
+import { useGetAllUserQuery } from "../api/dataApi";
 
-const InstructorTable = () => {
-  const { data: instructors, isSuccess } = useGetAllInstructorQuery();
+const UserTable = () => {
+  const { data: users, isSuccess } = useGetAllUserQuery();
   const [currentPage, setCurrentPage] = useState(1);
   const [showEditModal, setShowEditModal] = useState(false);
 
   const itemsPerPage = 3; // Set the number of items per page
   // Calculate the index of the last item on the current page
-  const indexOfLastInstructors = currentPage * itemsPerPage;
+  const indexOfLastUsers = currentPage * itemsPerPage;
   // Calculate the index of the first item on the current page
-  const indexOfFirstInstructors = indexOfLastInstructors - itemsPerPage;
+  const indexOfFirstUsers = indexOfLastUsers - itemsPerPage;
   // Get the current instructors
-  const currentInstructors = instructors?.data.slice(
-    indexOfFirstInstructors,
-    indexOfLastInstructors
-  );
+  const currentUsers = users?.data.slice(indexOfFirstUsers, indexOfLastUsers);
 
   // Calculate total pages
   const totalPages =
-    instructors && instructors.data
-      ? Math.ceil(instructors.data.length / itemsPerPage)
-      : 0;
+    users && users.data ? Math.ceil(users.data.length / itemsPerPage) : 0;
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -49,34 +44,32 @@ const InstructorTable = () => {
             </tr>
           </thead>
           <tbody>
-            {currentInstructors?.map((instructor, key) => (
+            {currentUsers?.map((user, key) => (
               <tr key={key}>
                 <td className="border-b cursor-pointer border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                   <h5 className="font-medium text-black dark:text-white">
-                    {instructor.firstName} {instructor.lastName}
+                    {user.firstName} {user.lastName}
                   </h5>
                 </td>
                 <td className="border-b cursor-pointer border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p className="text-black dark:text-white">
-                    {instructor.phoneNumber}
+                    {user.phoneNumber}
                   </p>
                 </td>
                 <td className="border-b cursor-pointer border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <p className="text-black dark:text-white">
-                    {instructor.email}
-                  </p>
+                  <p className="text-black dark:text-white">{user.email}</p>
                 </td>
                 <td className="border-b cursor-pointer border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p
                     className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                      instructor.status === "active"
+                      user.status === "active"
                         ? "bg-success text-success"
-                        : instructor.status === "Inactive"
+                        : user.status === "Inactive"
                         ? "bg-danger text-danger"
                         : "bg-warning text-warning"
                     }`}
                   >
-                    {instructor.status}
+                    {user.status}
                   </p>
                 </td>
                 <td className="border-b cursor-pointer border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -147,9 +140,9 @@ const InstructorTable = () => {
       {/* Pagination Controls */}
       <div className="flex justify-between items-center mt-4">
         <div>
-          Showing {indexOfFirstInstructors + 1} to{" "}
-          {Math.min(indexOfLastInstructors, instructors?.data.length)} of{" "}
-          {instructors?.data.length} items
+          Showing {indexOfFirstUsers + 1} to{" "}
+          {Math.min(indexOfLastUsers, users?.data.length)} of{" "}
+          {users?.data.length} items
         </div>
         <div className="flex space-x-2">
           <button
@@ -187,4 +180,4 @@ const InstructorTable = () => {
   );
 };
 
-export default InstructorTable;
+export default UserTable;

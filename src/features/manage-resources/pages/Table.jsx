@@ -93,7 +93,7 @@ const ResourceTable = () => {
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
         <div className=" flex items-end justify-end mr-2 mb-4 ">
-          <div className="flex items-center justify-center">
+          <div className="flex border-2 border-gray-700 pr-4 py-1 rounded-lg items-center justify-center">
             <button
               className="hover:text-primary"
               onClick={() => setShowAddModal(true)}

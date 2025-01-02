@@ -8,6 +8,7 @@ import { transactionsApi } from "./features/manage-transactions/api/dataApi";
 import { notificationApi } from "./features/manage-notifications/api/dataApi";
 import { categoryApi } from "./features/manage-category/api/dataApi";
 import { instructorApi } from "./features/manage-instructors/api/dataApi";
+import { userApi } from "./features/manage-users/api/dataApi";
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,8 @@ export const store = configureStore({
     [notificationApi.reducerPath]: notificationApi.reducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
     [instructorApi.reducerPath]: instructorApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
     auth: authSliceReducer,
   },
 
@@ -28,7 +31,8 @@ export const store = configureStore({
       transactionsApi.middleware,
       notificationApi.middleware,
       categoryApi.middleware,
-      instructorApi.middleware
+      instructorApi.middleware,
+      userApi.middleware
     ),
 });
 

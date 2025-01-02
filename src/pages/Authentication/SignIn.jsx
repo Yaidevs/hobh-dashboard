@@ -23,7 +23,7 @@ const SignIn = () => {
 
     try {
       const response = await signin({ phoneNumber, password }).unwrap();
-      console.log(response);
+      console.log('heyyy',response);
       const data = response.data;
 
       dispatch(setToken(data));

@@ -22,6 +22,7 @@ import { useSelector } from "react-redux";
 import Resources from "./features/manage-resources/pages/Resources";
 import Transactions from "./features/manage-transactions/pages/Transactions";
 import Instructors from "./features/manage-instructors/pages/Instructors";
+import Users from "./features/manage-users/pages/Users";
 
 const App = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -96,6 +97,19 @@ const App = () => {
               <>
                 <PageTitle title="Instructors" />
                 <Instructors />
+              </>
+            ) : (
+              <Navigate to="/auth/signin" replace />
+            )
+          }
+        />
+        <Route
+          path="/manage-users/users"
+          element={
+            isAuthenticated ? (
+              <>
+                <PageTitle title="Users" />
+                <Users />
               </>
             ) : (
               <Navigate to="/auth/signin" replace />
