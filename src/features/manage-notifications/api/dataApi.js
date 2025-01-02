@@ -2,10 +2,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../../constants";
 import { getTokenFromCookies } from "../../../shared/getToken.mjs";
 
-const apiBasePath = "/instructor";
+const apiBasePath = "/notifications";
 
-export const instructorApi = createApi({
-  reducerPath: "instructorApi",
+export const notificationApi = createApi({
+  reducerPath: "notificationApi",
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
@@ -17,33 +17,33 @@ export const instructorApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getAllInstructor: builder.query({
+    getAllItem: builder.query({
       query: () => `${apiBasePath}`,
     }),
-    getInstructorById: builder.query({
+    getItemById: builder.query({
       query: (id) => ({ url: `${apiBasePath}/${id}` }),
     }),
-    addInstructor: builder.mutation({
+    addItem: builder.mutation({
       query: (data) => ({ url: `${apiBasePath}`, method: "POST", body: data }),
     }),
 
-    updateInstructor: builder.mutation({
+    updateItem: builder.mutation({
       query: ({ id, data }) => ({
         url: `${apiBasePath}/${id}`,
         method: "PATCH",
         body: data,
       }),
     }),
-    deleteInstructor: builder.mutation({
+    deleteItem: builder.mutation({
       query: (id) => ({ url: `${apiBasePath}/${id}`, method: "DELETE" }),
     }),
   }),
 });
 
 export const {
-  useGetAllInstructorQuery,
-  useAddInstructorMutation,
-  useGetInstructorByIdQuery,
-  useDeleteInstructorMutation,
-  useUpdateInstructorMutation,
-} = instructorApi;
+  useGetAllItemQuery,
+  useAddItemMutation,
+  useGetItemByIdQuery,
+  useDeleteItemMutation,
+  useUpdateItemMutation,
+} = notificationApi;

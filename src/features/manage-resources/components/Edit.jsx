@@ -38,7 +38,7 @@ const Edit = ({ showModal, setShowModal, onSubmit }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50  z-50">
-      <div className="dark:bg-meta-4 bg-white rounded-lg p-6 w-full mt-8 max-w-xl">
+      <div className="dark:bg-meta-4 bg-white rounded-lg p-6 w-full mt-8 max-w-3xl">
         <h2 className="text-lg font-medium text-black dark:text-white mb-4">
           Edit Resource
         </h2>
