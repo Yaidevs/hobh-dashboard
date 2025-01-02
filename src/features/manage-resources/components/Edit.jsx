@@ -37,8 +37,14 @@ const Edit = ({ showModal, setShowModal, onSubmit }) => {
   if (!showModal) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50  z-50">
-      <div className="dark:bg-meta-4 bg-white rounded-lg p-6 w-full mt-8 max-w-3xl">
+    <div
+      onClick={() => setShowModal(false)}
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50  z-50"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="dark:bg-meta-4 bg-white rounded-lg p-6 w-full mt-8 max-w-3xl"
+      >
         <h2 className="text-lg font-medium text-black dark:text-white mb-4">
           Edit Resource
         </h2>
@@ -100,13 +106,13 @@ const Edit = ({ showModal, setShowModal, onSubmit }) => {
         </div>
         <div className="flex justify-end mt-4">
           <button
-            className="bg-gray-300 text-black dark:text-white px-4 py-2 rounded mr-2"
+            className="bg-gray-2 text-white dark:text-black font-semibold px-4 py-2 rounded mr-2"
             onClick={() => setShowModal(false)}
           >
             Cancel
           </button>
           <button
-            className="border-[#412D88] bg-[#412D88] text-white px-4 py-2 rounded"
+            className="border-[#412D88] bg-[#412D88] text-white font-semibold px-4 py-2 rounded"
             onClick={handleSubmit}
           >
             Submit

@@ -138,7 +138,7 @@ const ResourceTable = () => {
           <tbody>
             {currentResources?.map((resource, key) => (
               <tr key={key}>
-                <td className="border-b cursor-pointer border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                   {resource.file && resource.file.length > 0 ? (
                     resource.file.map((file, index) => (
                       <a
@@ -161,18 +161,18 @@ const ResourceTable = () => {
                     <span className="text-gray-500">No files</span>
                   )}
                 </td>
-                <td className="border-b cursor-pointer border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                <td className="border-b  border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                   <h5 className="font-medium text-black dark:text-white">
                     {resource.title}
                   </h5>
                   <p className="text-sm">GHS {resource.price}</p>
                 </td>
-                <td className="border-b cursor-pointer border-[#eee] py-5 px-4 dark:border-strokedark">
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p className="text-black dark:text-white">
                     {resource.description}
                   </p>
                 </td>
-                <td className="border-b cursor-pointer border-[#eee] py-5 px-4 dark:border-strokedark">
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   {resource.verification.status === "Pending" ? (
                     <div className="flex space-x-4 mr-8">
                       <button
@@ -203,7 +203,7 @@ const ResourceTable = () => {
                   )}
                 </td>
 
-                <td className="border-b cursor-pointer border-[#eee] py-5 px-4 dark:border-strokedark">
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
                     <button className="hover:text-primary">
                       <svg
