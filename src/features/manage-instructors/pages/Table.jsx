@@ -1,31 +1,26 @@
-const packageData = [
-  {
-    name: "Advanced Programming Guide",
-    price: 0.0,
-    invoiceDate: `Comprehensive guide on advanced programming techniques.`,
-    status: "approved",
-  },
-  {
-    name: "Programming Guide",
-    price: 59.0,
-    invoiceDate: `Comprehensive guide on advanced programming techniques.`,
-    status: "approved",
-  },
-  {
-    name: "Programming Guide",
-    price: 99.0,
-    invoiceDate: `Comprehensive guide on advanced programming techniques.`,
-    status: "pending",
-  },
-  {
-    name: "Programming Guide",
-    price: 59.0,
-    invoiceDate: `Comprehensive guide on advanced programming techniques.`,
-    status: "pending",
-  },
-];
+import { useState } from "react";
+import { useGetAllInstructorQuery } from "../api/dataApi";
 
-const Table = () => {
+const InstructorTable = () => {
+  const { data: instructors, isSuccess } = useGetAllInstructorQuery();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3; // Set the number of items per page
+  // Calculate the index of the last item on the current page
+  const indexOfLastInstructors = currentPage * itemsPerPage;
+  // Calculate the index of the first item on the current page
+  const indexOfFirstInstructors = indexOfLastInstructors - itemsPerPage;
+  // Get the current instructors
+  const currentInstructors = instructors?.data.slice(
+    indexOfFirstInstructors,
+    indexOfLastInstructors
+  );
+
+  // Calculate total pages
+  const totalPages =
+    instructors && instructors.data
+      ? Math.ceil(instructors.data.length / itemsPerPage)
+      : 0;
+
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
@@ -33,7 +28,7 @@ const Table = () => {
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
               <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                Full Name
+                Name
               </th>
               <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                 Phone Number
@@ -50,30 +45,34 @@ const Table = () => {
             </tr>
           </thead>
           <tbody>
-            {packageData.map((packageItem, key) => (
+            {currentInstructors?.map((instructor, key) => (
               <tr key={key}>
                 <td className="border-b cursor-pointer border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                   <h5 className="font-medium text-black dark:text-white">
-                    {packageItem.name}
+                    {instructor.firstName} {instructor.lastName}
                   </h5>
-                  <p className="text-sm">${packageItem.price}</p>
                 </td>
                 <td className="border-b cursor-pointer border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p className="text-black dark:text-white">
-                    {packageItem.invoiceDate}
+                    {instructor.phoneNumber}
+                  </p>
+                </td>
+                <td className="border-b cursor-pointer border-[#eee] py-5 px-4 dark:border-strokedark">
+                  <p className="text-black dark:text-white">
+                    {instructor.email}
                   </p>
                 </td>
                 <td className="border-b cursor-pointer border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p
                     className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                      packageItem.status === "approved"
+                      instructor.status === "active"
                         ? "bg-success text-success"
-                        : packageItem.status === "pending"
+                        : instructor.status === "Inactive"
                         ? "bg-danger text-danger"
                         : "bg-warning text-warning"
                     }`}
                   >
-                    {packageItem.status}
+                    {instructor.status}
                   </p>
                 </td>
                 <td className="border-b cursor-pointer border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -150,8 +149,47 @@ const Table = () => {
           </tbody>
         </table>
       </div>
+      {/* Pagination Controls */}
+      <div className="flex justify-between items-center mt-4">
+        <div>
+          Showing {indexOfFirstInstructors + 1} to{" "}
+          {Math.min(indexOfLastInstructors, instructors?.data.length)} of{" "}
+          {instructors?.data.length} items
+        </div>
+        <div className="flex space-x-2">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 text-white bg-blue-500 rounded disabled:bg-gray-300"
+          >
+            &lt;
+          </button>
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentPage(index + 1)}
+              className={`px-4 py-2 rounded ${
+                currentPage === index + 1
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 text-white bg-blue-500 rounded disabled:bg-gray-300"
+          >
+            &gt;
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Table;
+export default InstructorTable;

@@ -76,18 +76,18 @@ const Add = ({ showModal, setShowModal, onSubmit }) => {
             placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full outline-none p-2 bg-gray-2 border-none dark:bg-[#1D2A39] text-black dark:text-white border border-gray-300 rounded"
+            className="w-full outline-none p-2 bg-gray border-none dark:bg-[#1D2A39] text-black dark:text-white border border-gray-300 rounded"
           />
           <input
             type="file"
             multiple
             onChange={handleFileChange}
-            className="w-full outline-none p-2 border-none bg-gray-2 dark:bg-[#1D2A39]  text-black dark:text-white border border-gray-300 rounded"
+            className="w-full outline-none p-2 border-none bg-gray dark:bg-[#1D2A39]  text-black dark:text-white border border-gray-300 rounded"
           />
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full outline-none p-2 bg-gray-2 dark:bg-[#1D2A39] text-black border-none dark:text-white rounded"
+            className="w-full outline-none p-2 bg-gray dark:bg-[#1D2A39] text-black border-none dark:text-white rounded"
           >
             <option value="">Select Category</option>
             {isLoading && <option>Loading categories...</option>}
@@ -103,7 +103,7 @@ const Add = ({ showModal, setShowModal, onSubmit }) => {
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full outline-none p-2 bg-gray-2 dark:bg-[#1D2A39] text-black dark:text-white border-gray-300 rounded"
+            className="w-full outline-none p-2 bg-gray dark:bg-[#1D2A39] text-black dark:text-white border-gray-300 rounded"
           />
           <div className="flex space-x-4">
             <input
@@ -111,12 +111,12 @@ const Add = ({ showModal, setShowModal, onSubmit }) => {
               placeholder="Price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              className="flex-1 outline-none p-2 bg-gray-2 dark:bg-[#1D2A39] text-black dark:text-white border-gray-300 rounded"
+              className="flex-1 outline-none p-2 bg-gray dark:bg-[#1D2A39] text-black dark:text-white border-gray-300 rounded"
             />
             <select
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
-              className="outline-none p-2 border-none bg-gray-2 dark:bg-[#1D2A39] text-black dark:text-white border-gray-300 rounded"
+              className="outline-none p-2 border-none bg-gray dark:bg-[#1D2A39] text-black dark:text-white border-gray-300 rounded"
             >
               <option value="USD">USD</option>
               <option value="EUR">EUR</option>
@@ -126,7 +126,7 @@ const Add = ({ showModal, setShowModal, onSubmit }) => {
           <select
             value={instructor}
             onChange={(e) => setInstructor(e.target.value)}
-            className="w-full outline-none p-2 bg-gray-2 dark:bg-[#1D2A39] text-black border-none dark:text-white rounded"
+            className="w-full outline-none p-2 bg-gray dark:bg-[#1D2A39] text-black border-none dark:text-white rounded"
           >
             <option value="">Select Instructor</option>
             {instuctorsLoading && <option>Loading instructors...</option>}
@@ -143,7 +143,7 @@ const Add = ({ showModal, setShowModal, onSubmit }) => {
         </div>
         <div className="flex justify-end mt-4">
           <button
-            className="bg-gray-2 font-semibold text-white dark:text-black px-4 py-2 rounded mr-2"
+            className="bg-gray-800 dark:bg-gray-2 font-semibold text-white dark:text-black px-4 py-2 rounded mr-2"
             onClick={() => setShowModal(false)}
           >
             Cancel

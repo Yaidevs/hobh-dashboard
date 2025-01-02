@@ -106,7 +106,7 @@ const Edit = ({ showModal, setShowModal, onSubmit }) => {
         </div>
         <div className="flex justify-end mt-4">
           <button
-            className="bg-gray-2 text-white dark:text-black font-semibold px-4 py-2 rounded mr-2"
+            className="bg-gray-800 dark:bg-gray-2 font-semibold text-white dark:text-black px-4 py-2 rounded mr-2"
             onClick={() => setShowModal(false)}
           >
             Cancel
